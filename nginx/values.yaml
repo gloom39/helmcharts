@@ -8,3 +8,7 @@ image:
 service:
   type: ClusterIP
   port: 80
+
+configmap:
+  index: |
+    <h1>This is a sample page</h1> 
