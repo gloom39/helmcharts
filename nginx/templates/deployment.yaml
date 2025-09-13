@@ -5,7 +5,7 @@ metadata:
   labels:
     {{- include "mychart.labels" . | nindent 4 }}
 spec:
-  replicas: {{ .Values.replicaCount }}
+  replicas: {{- if eq .Values.env "prod" }} 3 {{- else }} 2 {{- end }}
   selector:
     matchLabels:
       app.kubernetes.io/name: {{ .Chart.Name }}
@@ -21,3 +21,12 @@ spec:
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           ports:
             - containerPort: {{ .Values.service.port }}
+          resources:
+            requests:
+            {{- range $key,$value := .Values.resources.requests  }}
+              {{ $key }}: "{{ $value }}"
+            {{- end }}
+            limits:
+            {{- range $key,$value := .Values.resources.limits }}
+              {{ $key }}: "{{ $value }}"
+            {{- end }}
