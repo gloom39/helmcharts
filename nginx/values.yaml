@@ -1,4 +1,5 @@
 replicaCount: 2
+env : dev
 
 image:
   repository: nginx
@@ -12,3 +13,11 @@ service:
 configmap:
   index: |
     <h1>This is a sample page</h1> 
+
+resources:
+  requests:
+    cpu: 0.2
+    memory: 100m
+  limits:
+    cpu: 0.4
+    memory: 200m
